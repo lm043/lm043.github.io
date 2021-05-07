@@ -1,0 +1,20 @@
+#include<stdio.h>
+#include<unistd.h>
+#include<sys/wait.h>
+#include<sys/types.h>
+#include<sys/stat.h>
+int main(){
+     pid_t pid;
+     pid = fork();
+     if(pid==0){
+        execlp("/bin/ls","ls",NULL);
+     }
+     else if(pid>0){
+         mkdir("hise",0700);
+         wait(NULL);
+         printf("Child:%d\n",pid);
+         printf("Parent:%d\n",getpid());
+         execlp("/bin/cp","cp","/home/lm/myco.c","/home/lm/hise/myco2.c",NULL);
+     }
+     return 0;
+}
